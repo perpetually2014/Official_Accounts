@@ -57,7 +57,7 @@ def get_mail():
             }
 
             # 使用get方法进行提交
-            time.sleep(random.uniform(6.1, 9.3))
+            time.sleep(random.uniform(2.1, 5.3))
             try:
                 content_json = requests.get(url, headers=headers, params=data).json()
                 logging.info(

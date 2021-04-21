@@ -40,7 +40,7 @@ def get_mail():
     token = (cookie_pool.hget('wechatCookiePool', 'token').decode('utf-8'))
 
     # 获取最近10页
-    for page in range(133, 70, -1):
+    for page in range(10):
         # for page in range(3):
         for fakeid in config.fakeids.keys():
             data = {
