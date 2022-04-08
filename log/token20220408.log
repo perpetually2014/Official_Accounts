@@ -1,0 +1,17 @@
+2022-04-08 11:04:17 get_token.py[line:26] INFO redis请求cookie失败,重新请求:'NoneType' object has no attribute 'decode'
+2022-04-08 11:11:33 get_token.py[line:44] INFO token 保存至redis成功：110694179
+2022-04-08 11:13:15 get_token.py[line:44] INFO 微信账号：超级码2 Pro,token 保存至redis成功：799750989
+2022-04-08 11:13:52 get_token.py[line:44] INFO 微信账号：超级码2 Pro。保存至redis成功,token为：799750989
+2022-04-08 11:14:27 get_token.py[line:44] INFO 微信账号:超级码2 Pro,token为:799750989。保存至redis成功
+2022-04-08 11:18:37 get_token.py[line:44] INFO 微信账号:溯源防伪开放平台,token为:1585454110。保存至redis成功
+2022-04-08 11:23:09 get_token.py[line:44] INFO 微信账号:内部优惠折扣券,token为:110694179。保存至redis成功
+2022-04-08 11:25:01 get_token.py[line:44] INFO 微信账号:内部优惠折扣券,token为:110694179。保存至redis成功
+2022-04-08 11:36:10 get_token.py[line:44] INFO 微信账号:溯源防伪开放平台,token为:1585454110。保存至redis成功
+2022-04-08 11:46:59 get_token.py[line:26] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:47:57 get_token.py[line:27] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:48:24 get_token.py[line:27] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:49:05 get_token.py[line:26] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:49:12 get_token.py[line:26] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:49:46 get_token.py[line:27] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:49:47 get_token.py[line:27] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-04-08 11:49:52 get_token.py[line:27] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set

@@ -2,13 +2,11 @@ import os
 import time
 from itertools import chain
 import pymysql
-
 import logger
 import config
 
 log_path = os.path.abspath(os.path.dirname(__file__)) + '/log/news%s.log' % time.strftime('%Y%m%d')
 logging = logger.log_conf('news', log_path)
-
 
 class GetJdStore:
     def __init__(self):
@@ -22,65 +20,47 @@ class GetJdStore:
             charset=config.charset
         )
 
-    # 近一年的公众号数据
-    def get_insert_year(self, name, title, link, pubdate, thumbnail_url, description, type=1):
+    def wechat_news(self, item):
+        site_id = item['site_id']
+        level = item['level']
+        site_name = item['site_name']
+        type = item['type']
+        url = item['url']
+        title = item['title']
+        source = item['source']
+        content = item['content']
+        publish_time = item['publish_time']
+        images = str(item['images'])
+        data_id = item['data_id']
+        body_html = item['body_html']
 
         # 使用cursor()方法获取操作游标
         cursor = self.db.cursor()
-        # SQL 插入语句
-        sql = "INSERT INTO t_wechat(name,title ,link,pubdate,thumbnail_url,description,type ) VALUES (%s,%s,%s,%s,%s,%s,%s)ON DUPLICATE KEY " \
-              "UPDATE pubdate = VALUES(pubdate), update_time = CURRENT_TIMESTAMP "
-
+        # for db in ['anji_news','wechat_news']:
+        sql = "INSERT INTO {}(site_id, level, site_name, type, url,title,source,content,publish_time,images,data_id,body_html) " \
+              "VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)ON DUPLICATE KEY " \
+              "UPDATE body_html = VALUES(body_html), update_time = CURRENT_TIMESTAMP ".format('wechat_news')
         try:
             # 执行sql语句
-            cursor.execute(sql, [name, title, link, pubdate, thumbnail_url, description, type])
+            cursor.execute(sql, [site_id, level, site_name, type, url, title, source, content, publish_time, images,
+                                 data_id, body_html])
 
             # 提交到数据库执行
             self.db.commit()
-            logging.info("公众号：{},发布时间：{}，数据写入成功,标题为:{}".format(name, pubdate, title))
-
+            # logging.info("时间:{},写入成功,标题为:{}".format(publish_time, title))
         except Exception as e:
             # 如果发生错误则回滚
-            logging.info("写入失败，数据回滚{}".format(e))
-            self.db.rollback()
-        finally:
-            # 关闭数据库连接
-            self.db.close()
-
-    # 近一个月的数据：统战新语
-    def get_insert_1month(self, name, title, link, pubdate, thumbnail_url, description, type=2):
-
-        # 使用cursor()方法获取操作游标
-        cursor = self.db.cursor()
-        # SQL 插入语句
-
-        sql = "INSERT INTO t_wechat(name,title ,link,pubdate,thumbnail_url,description,type ) VALUES (%s,%s,%s,%s,%s,%s,%s)ON DUPLICATE KEY " \
-              "UPDATE pubdate = VALUES(pubdate), update_time = CURRENT_TIMESTAMP "
-
-        try:
-            # 执行sql语句
-            cursor.execute(sql, [name, title, link, pubdate, thumbnail_url, description, type])
-
-            # 提交到数据库执行
-            self.db.commit()
-            logging.info("公众号：{},数据写入成功,标题为:{}".format(name, title))
-
-        except Exception as e:
-            # 如果发生错误则回滚
-            logging.info("写入失败，数据回滚{}".format(e))
+            logging.info("写入失败，数据回滚{},{}".format(e, url))
             self.db.rollback()
         finally:
             # 关闭数据库连接
             self.db.close()
 
     # 近三个月的数据，匹配关键词：同心、同心荟、活动（文章内容同时包含这三个词）
-
     def get_insert_3month(self, name, title, link, pubdate, thumbnail_url, description, type=3):
-
         # 使用cursor()方法获取操作游标
         cursor = self.db.cursor()
         # SQL 插入语句
-
         sql = "INSERT INTO t_wechat(name,title ,link,pubdate,thumbnail_url,description,type ) VALUES (%s,%s,%s,%s,%s,%s,%s)ON DUPLICATE KEY " \
               "UPDATE type = VALUES(type), update_time = CURRENT_TIMESTAMP "
 
