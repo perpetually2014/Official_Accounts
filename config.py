@@ -1,17 +1,17 @@
 
 import random
 # mysql 服务器
-host = "192.168.20.217"
+host = "127.0.0.1"
 port = 3306
-user = "jgw"
-passwd = "Jgw*31500-2018.6"
+user = "root"
+passwd = "123"
 database = "news"
 charset = "utf8"
 
 # redis
-redis_host = '192.168.20.147'
+redis_host = '127.0.0.1'
 redis_port = 6379
-redis_password = 'jgw31500'
+redis_password = '123'
 wechat_md5 = 'news'
 
 
