@@ -1,0 +1,16 @@
+2022-08-26 15:29:25 search.py[line:31] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-08-26 15:30:02 search.py[line:31] INFO redis请求cookie失败,重新请求:Client sent AUTH, but no password is set
+2022-08-26 15:30:33 search.py[line:31] INFO redis请求cookie失败,重新请求:get_token() takes 0 positional arguments but 2 were given
+2022-08-26 15:37:28 wechat_news.py[line:41] INFO redis请求cookie失败,重新请求:'GetJdStore' object has no attribute 'get_search'
+2022-08-26 15:40:39 wechat_news.py[line:95] WARNING 账号:内部优惠折扣券,被系统限制:农业农村现代化，稍后重试:200013
+2022-08-26 15:40:41 wechat_news.py[line:95] WARNING 账号:溯源防伪开放平台,被系统限制:陕西都市快报，稍后重试:200013
+2022-08-26 15:40:42 wechat_news.py[line:95] WARNING 账号:超级玛2 Pro,被系统限制:农业农村现代化，稍后重试:200013
+2022-08-26 15:40:44 wechat_news.py[line:95] WARNING 账号:超级码3 Test,被系统限制:陕西都市快报，稍后重试:200013
+2022-08-26 15:40:44 wechat_news.py[line:184] INFO 所有账号被系统限制，稍后重试
+2022-08-26 15:59:58 wechat.py[line:67] INFO cookie失效：{'base_resp': {'err_msg': 'freq control', 'ret': 200013}}
+2022-08-26 16:02:01 wechat_news.py[line:94] WARNING 账号:内部优惠折扣券,被系统限制:农业农村现代化，稍后重试:200013
+2022-08-26 16:02:02 wechat_news.py[line:94] WARNING 账号:溯源防伪开放平台,被系统限制:陕西都市快报，稍后重试:200013
+2022-08-26 16:02:04 wechat_news.py[line:94] WARNING 账号:超级玛2 Pro,被系统限制:农业农村现代化，稍后重试:200013
+2022-08-26 16:02:05 wechat_news.py[line:94] WARNING 账号:超级码3 Test,被系统限制:陕西都市快报，稍后重试:200013
+2022-08-26 16:02:05 wechat_news.py[line:178] INFO 所有账号被系统限制，稍后重试
+2022-08-26 16:07:30 wechat.py[line:67] INFO cookie失效：{'base_resp': {'err_msg': 'freq control', 'ret': 200013}}

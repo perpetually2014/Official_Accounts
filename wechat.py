@@ -28,8 +28,9 @@ def get_mail():
     # 获取cookie
     try:
         cookie_pool = redis.Redis(host=config.redis_host, port=config.redis_port, password=config.redis_password)
+        Wechat_account = config.Wechat_account
         cookies = (cookie_pool.hget('wechatCookiePool', config.Wechat_account).decode('utf-8'))
-
+        token = get_token.get_token(cookies, Wechat_account)
     except Exception as e:
         logging.info("redis请求cookie失败,重新请求:{}".format(e))
 
@@ -40,9 +41,7 @@ def get_mail():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36",
     }
 
-    # 获取token
-    get_token.get_token()
-    token = (cookie_pool.hget('wechatCookiePool', 'token').decode('utf-8'))
+
 
     # 获取最近2页
     for page in range(1):

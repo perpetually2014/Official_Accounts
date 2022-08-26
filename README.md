@@ -8,7 +8,7 @@ tail -f log/cookies.log
 
 ### 启动程序
 
-python3 wechat.py
+python3 wechat_news.py
 
 ### 解决思路	
 
@@ -42,7 +42,15 @@ fakeid和名字
 ```
 返回json结果为： {'base_resp': {'err_msg': 'freq control', 'ret': 200013}}
 
-出现这个错误，账号被封了，需要等待几个小时解禁，账号cookie和token会过期需要及时更新
+出现这个错误，账号被封了，需要等待几个小时解禁，账号cookie和token会过期72小时需要更新一次
 如果需要大量数据，需要多个账号
+
+返回json结果为： { "base_resp": { "err_msg": "invalid args", "ret": 200002    } }
+参数错误，检查一下fakeid
+
+返回json结果为： { "base_resp": { "err_msg": "invalid args", "ret": 0    } }
+请求正确！
+ 
+其他结果：一律错误
 
 ```

@@ -56,22 +56,24 @@ class GetJdStore:
             # 关闭数据库连接
             self.db.close()
 
-    # 近三个月的数据，匹配关键词：同心、同心荟、活动（文章内容同时包含这三个词）
-    def get_insert_3month(self, name, title, link, pubdate, thumbnail_url, description, type=3):
+    # 微信账号
+    def wechat_source(self, item):
+        fakeid = item['fakeid']
+        name = item['name']
+        type = item['type']
+        site_id = item['site_id']
         # 使用cursor()方法获取操作游标
         cursor = self.db.cursor()
         # SQL 插入语句
-        sql = "INSERT INTO t_wechat(name,title ,link,pubdate,thumbnail_url,description,type ) VALUES (%s,%s,%s,%s,%s,%s,%s)ON DUPLICATE KEY " \
-              "UPDATE type = VALUES(type), update_time = CURRENT_TIMESTAMP "
 
+        sql = "INSERT INTO wechat_source(fakeid,name,type,site_id) VALUES (%s,%s,%s,%s)ON DUPLICATE KEY " \
+              "UPDATE name = VALUES(name), update_time = CURRENT_TIMESTAMP "
         try:
             # 执行sql语句
-
-            cursor.execute(sql, [name, title, link, pubdate, thumbnail_url, description, type])
-
+            cursor.execute(sql, [fakeid, name, type, site_id])
             # 提交到数据库执行
             self.db.commit()
-            logging.info("公众号：{}，时间：{}，数据写入成功,标题为:{}".format(name, pubdate, title))
+            logging.info("微信账号写入成功,标题为:{}".format(name))
 
         except Exception as e:
             # 如果发生错误则回滚
@@ -81,24 +83,46 @@ class GetJdStore:
             # 关闭数据库连接
             self.db.close()
 
-    def getSearch(self):
+    # 搜索
+    def get_search(self):
         cur = self.db.cursor()
-
-        # 1.查询操作(按时间查找，今天的/三个月内的)
-        sql = "select name , title ,link,pubdate,thumbnail_url,description from  t_wechat where to_days(create_time) = to_days(now())"
-        # sql = "select name , title ,link,pubdate,thumbnail_url,description FROM t_wechat where pubdate between date_sub(now(),interval 3 month) and now();"
+        # 1.查询操作(按时间查找，今天的)
+        sql = "select name,fakeid,site_id from wechat_source  where is_update =1 ORDER BY spider_time  ASC"
+        # sql = "select name,fakeid,site_id from wechat_source  where is_update =1"
         try:
             cur.execute(sql)  # 执行sql语句
             results = cur.fetchall()  # 获取查询的所有记录
             resultlist = list(chain.from_iterable(results))
             return resultlist
-
         except Exception as e:
-
             logging.info("查询错误{}".format(e))
             raise e
         finally:
             self.db.close()  # 关闭连接
+
+    # 更新数量
+    def spider_time(self, item):
+        # 使用cursor()方法获取操作游标
+        fakeid = item['fakeid']
+        count = item['count']
+        spider_time = item['spider_time']
+        cursor = self.db.cursor()
+        sql = "INSERT INTO wechat_source(fakeid,count,spider_time) VALUES (%s,%s,%s)ON DUPLICATE KEY " \
+              "UPDATE count = VALUES(count), spider_time = VALUES(spider_time), update_time = CURRENT_TIMESTAMP "
+        try:
+            # 执行sql语句
+            cursor.execute(sql, [fakeid, count, spider_time])
+            # 提交到数据库执行
+            self.db.commit()
+            logging.info("开启采集,账号为:{}".format(fakeid))
+
+        except Exception as e:
+            # 如果发生错误则回滚
+            logging.info("写入失败，数据回滚{}".format(e))
+            self.db.rollback()
+        finally:
+            # 关闭数据库连接
+            self.db.close()
 
 
 if __name__ == '__main__':
