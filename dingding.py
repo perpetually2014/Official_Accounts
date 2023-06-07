@@ -29,6 +29,6 @@ def sendmessage(message):
 
 if __name__ == '__main__':
     pass
-    # message = "三农资讯：微信账号 {}cookie过期了，请登录"
+    # message = "微信账号 {}cookie过期了，请登录"
     # sendmessage(message)
 
