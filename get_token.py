@@ -28,7 +28,8 @@ def get_token(cookies,Wechat_account):
     html = etree.HTML(res)
 
     try:
-        token_url = html.xpath('//a[@class="weui-desktop-btn__head-opr weui-desktop-account__message"]/@href')[0]
+        #token_url = html.xpath('//a[@class="weui-desktop-btn__head-opr weui-desktop-account__message"]/@href')[0]
+        token_url = html.xpath('//a[@class="weui-desktop-link"]/@href')[-1]
         token = token_url.split("token=")[1]
         # logging.info("token请求成功：{},微信号为：{}".format(token, Wechat_account))
         return token
